@@ -1,0 +1,45 @@
+<!--
+  Generated template for the EventParticipants page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+	<ion-navbar>
+		<ion-title>eventParticipants</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<div class="row" *ngIf="participants && participants.length > 0">
+		<ion-list>
+			<ion-list-header>
+				<h1>Participants</h1>
+			</ion-list-header>
+
+			<ion-item-sliding *ngFor="let participant of participants">
+				<ion-item>
+					<ion-avatar item-left>
+						<img [src]="participant.profile_image">
+					</ion-avatar>
+					<h2>{{participant.username}}</h2>
+					<p>Back off man, I'm a scientist.</p>
+				</ion-item>
+				<ion-item-options>
+					<button ion-button color="light" icon-left>
+          <ion-icon name="ios-more"></ion-icon>
+          More
+        </button>
+					<button ion-button color="primary" icon-left>
+          <ion-icon name="text"></ion-icon>
+          Text
+        </button>
+					<button ion-button color="secondary" icon-left>
+          <ion-icon name="call"></ion-icon>
+          Call
+        </button>
+				</ion-item-options>
+			</ion-item-sliding>
+		</ion-list>
+	</div>
+</ion-content>

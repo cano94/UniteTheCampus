@@ -1,0 +1,86 @@
+.ios, .md {
+  
+    page-login {
+       
+ 
+        ion-content {
+           
+        }
+ 
+        scroll-content {
+            display: flex;
+            flex-direction: column;
+        }
+ 
+        ion-row {
+            align-items: center;
+            text-align: center;
+        }
+ 
+        ion-item {
+            border-radius: 30px !important;
+            padding-left: 10px !important;
+            margin-bottom: 10px;
+            background-color: #f6f6f6;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        ion-segment{
+            background-color: #CCCCCC
+            
+        }
+ 
+        ion-list {
+            margin: 0;
+        }
+
+        .all{
+        position:absolute; /*it can be fixed too*/
+        left:0; right:0;
+        top:0; bottom:0;
+        margin:auto;
+
+        /*this to solve "the content will not be cut when the window is smaller than the content": */
+        max-width:100%;
+        max-height:100%;
+        overflow:auto;
+        }
+
+
+      .background{ 
+          //background: url(../../img/campus_background.jpg) no-repeat center center fixed;; 
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          background-size: cover;
+    }
+ 
+        .login-logo {
+            flex: 2;
+        }
+ 
+        .login-form {
+            flex: 1;
+        }
+ 
+        .login-button {
+            border-radius: 30px;
+            text-align: 'center';
+            font-size: 0.9em;
+            background-color:#464646; 
+        }
+        
+        
+        .signup-button{
+             border-radius: 30px;
+            text-align: 'center';
+            font-size: 0.9em;
+            background-color: #464646;;
+        }
+
+        
+ 
+    }
+
+ 
+}

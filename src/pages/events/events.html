@@ -1,0 +1,112 @@
+<!--
+  Generated template for the Events page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar color='primary'>
+		<ion-title>events</ion-title>
+		<ion-buttons end>
+			<button ion-button clear icon-only (click)="pushNewEvent()"><ion-icon name="add-circle"></ion-icon></button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<div class="row">
+		<div class="segments">
+			<ion-segment [(ngModel)]="eventType" class="segment">
+				<ion-segment-button value="recommended">
+					Recommended
+				</ion-segment-button>
+				<ion-segment-button value="all">
+					All
+				</ion-segment-button>
+			</ion-segment>
+		</div>
+		<div [ngSwitch]="eventType" no-padding>
+			<div *ngSwitchCase="'all'">
+				<div *ngIf="events.length <= 0"><br>
+					<h3>There is no event for now</h3>
+				</div>
+				<div *ngIf="events !== undefined">
+					<ion-card *ngFor="let event of events" (click)="pushEventDetail(event)">
+						<img class="event_image" [src]="event.image">
+						<ion-card-content>
+							<h1 class="card-title">
+								{{event.name}}
+							</h1><br>
+							<p>Location: {{event.location}}</p><br>
+							<p>Date: {{event.date}}</p><br>
+							<p>Start: {{event.start}}</p><br>
+						</ion-card-content>
+						<div class="event-buttons">
+							<ion-row no-padding>
+								<ion-col>
+									<button ion-button clear small (click)="addParticipant(event.id)" color="danger" icon-left>
+                                   <ion-icon name='person-add'></ion-icon>
+                                       Join
+                                   </button>
+								</ion-col>
+								<ion-col>
+									<button ion-button clear small color="danger" icon-left>
+                                   <ion-icon name='bookmark'></ion-icon>
+                                       Favorite
+                                   </button>
+								</ion-col>
+								<ion-col text-center>
+									<button ion-button clear small (click)="pushParticipants(event.id)" color="danger" icon-left>
+                                   <ion-icon name='people'></ion-icon>
+                                     Participant
+                                     </button>
+								</ion-col>
+							</ion-row>
+						</div>
+					</ion-card>
+				</div>
+			</div>
+			<div *ngSwitchCase="'recommended'">
+				<div *ngIf="recommended_events==undefined"><br>
+					<h3>There is no recommended event for now</h3>
+				</div>
+				<div *ngIf="recommended_events !== undefined">
+					<ion-card *ngFor="let event of recommended_events">
+						<div class="event_image"><img  [src]="event.image"></div>
+						<ion-card-content>
+							<h1 class="card-title">
+								{{event.name}}
+							</h1><br>
+							<p>Location: {{event.location}}</p><br>
+							<p>Date: {{event.date}}</p><br>
+							<p>Start: {{event.start}}</p><br>
+							<p>Organizator: {{event.creator}}</p><br>
+							<p>Description: {{event.info}}</p><br>
+						</ion-card-content>
+						<ion-row no-padding>
+							<ion-col>
+								<button ion-button clear small (click)="addParticipant(event.id)" color="danger" icon-left>
+                                   <ion-icon name='person-add'></ion-icon>
+                                     Join
+                                    </button>
+							</ion-col>
+							<ion-col text-center>
+								<button ion-button clear small (click)="pushParticipants(event.id)" color="danger" icon-left>
+                                  <ion-icon name='people'></ion-icon>
+                                    Participant
+                                    </button>
+							</ion-col>
+							<ion-col text-right>
+								<button ion-button clear small color="danger" icon-left>
+                                  <ion-icon name='share-alt'></ion-icon>
+                                     Share
+                                    </button>
+							</ion-col>
+						</ion-row>
+					</ion-card>
+				</div>
+			</div>
+		</div>
+	</div>
+</ion-content>

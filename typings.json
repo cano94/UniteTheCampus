@@ -1,0 +1,12 @@
+{
+    "dependencies": {
+        "linq": "registry:npm/linq#3.0.5+20160322032703"
+    },
+    "devDependencies": {},
+    "globalDevDependencies": {
+        "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654"
+    },
+    "globalDependencies": {
+        "linq": "registry:dt/linq#2.2.0+20160619013616"
+    }
+}
