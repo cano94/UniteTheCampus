@@ -8,7 +8,7 @@
 
 	<ion-navbar>
 		<ion-title>
-			<h1>{{event.name}}</h1>
+			<h6>{{event.name}}</h6>
 		</ion-title>
 	</ion-navbar>
 
@@ -20,19 +20,34 @@
 		<img [src]="event.image" class="image">
 	</div>
 	<div class="summary">
-		<p>{{event.date}}-{{event.start}}</p>
+		<p>{{event.date}}</p>
+		<p>{{event.start}}</p>
 		<h6>{{event.location}}</h6>
 	</div>
 	<div class="description">
 		<p>{{event.info}}</p>
 	</div>
+	<div class="creator">
+		<p> Organizer: {{event.creator}}</p>
+	</div>
+	<div class="ratings_header" *ngIf="user_ratings">
+		<p>Organizer's ratings on this type:</p>
+	</div>
+	<ion-list class="ratings">
+		<ion-item *ngFor="let rating of user_ratings">
+			<p *ngIf="rating.rating_type == event.event_type">
+				{{rating.rating_type}}({{rating.total/rating.avg}})
+				<rating readOnly="true" [(ngModel)]="rating.avg"></rating>
+			</p>
+		</ion-item>
+	</ion-list>
 	<ion-fab right bottom>
 		<button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
 		<ion-fab-list side="left">
 			<button (click)="pushMapPage()" ion-fab><ion-icon name="map"></ion-icon></button>
-			<button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-			<button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
-			<button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+			<button (click)="addParticipant(event.id)" ion-fab><ion-icon name="person-add"></ion-icon></button>
+			<button (click)="pushParticipants(event.id)" ion-fab><ion-icon name="people"></ion-icon></button>
+			<button (click)="pushMessagePage()" ion-fab><ion-icon name="mail"></ion-icon></button>
 		</ion-fab-list>
 	</ion-fab>
 </ion-content>

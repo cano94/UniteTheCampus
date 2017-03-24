@@ -1,0 +1,44 @@
+<!--
+  Generated template for the Messagebox page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar>
+		<ion-title>messagebox</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list *ngIf="messages && messages.length > 0">
+		<ion-list-header>
+			<h1>Messages</h1>
+		</ion-list-header>
+
+		<ion-item-sliding *ngFor="let msg of messages">
+			<ion-item text-wrap>
+				<ion-avatar item-left>
+					<ion-icon name="mail"></ion-icon>
+				</ion-avatar>
+				<h2>From: {{msg.sender}}</h2>
+				<p>{{msg.content}}</p>
+			</ion-item>
+			<ion-item-options>
+				<button ion-button color="green" (click)="replyMessage(msg.sender)" icon-left>
+          <ion-icon name="redo"></ion-icon>
+          Reply
+        </button>
+				<button ion-button color="danger" (click)="deleteMessage(msg.id)" icon-left>
+          <ion-icon name="remove-circle"></ion-icon>
+          Delete
+        </button>
+			</ion-item-options>
+		</ion-item-sliding>
+
+	</ion-list>
+
+</ion-content>

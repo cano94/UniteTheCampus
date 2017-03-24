@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Http, Headers } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { EventParticipantsPage } from '../event-participants/event-participants';
-import{EventDetailPage} from '../event-detail/event-detail'
+import { EventDetailPage } from '../event-detail/event-detail'
 import { NewEventPage } from '../new-event/new-event';
 
 
@@ -23,24 +23,37 @@ export class EventsPage {
   user_id: any = this.jwtHelper.decodeToken(this.token).user_id
   eventType: string = "recommended";
   EVENTS_URL: string = "http://campus.us-west-2.elasticbeanstalk.com/live_events/";
-  RECOMMENDED_URL: string = "http://campus.us-west-2.elasticbeanstalk.com/?types="
+  RECOMMENDED_URL: string = "http://campus.us-west-2.elasticbeanstalk.com/recommended?types="
   USER_INTEREST_URL: string = "http://campus.us-west-2.elasticbeanstalk.com/user_interest/" + this.user_id + "/"
   UPDATE_PARTICIPANTS_URL: string = "http://campus.us-west-2.elasticbeanstalk.com/updatePart"
   PARTICIPANTS_URL: string = "http://campus.us-west-2.elasticbeanstalk.com/participants"
   events: any;
+  loading: any;
   recommended_events: any;
   user_interests: any;
   contentHeader: Headers = new Headers({ "Content-Type": "application/json" });
 
   username = '["' + this.jwtHelper.decodeToken(this.token).username + '"]';
 
-  constructor(public navCtrl: NavController, private http: Http) {
+  constructor(public navCtrl: NavController, private http: Http, private loadingCtrl: LoadingController) {
     this.getUserInterests();
     this.getEvents();
   }
 
   ionViewDidLoad() {
     console.log('Hello EventsPage Page');
+
+  }
+
+  showLoader() {
+
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading..',
+      dismissOnPageChange: true
+    });
+
+    this.loading.present();
+
   }
 
   getEvents() {
@@ -72,7 +85,10 @@ export class EventsPage {
       s += interest + ","
     }
     s = s.substring(0, s.length - 1);
-    let url = this.RECOMMENDED_URL + s +"&"+this.user_id;
+    s = s.replace(/&/g, "%26")
+    //alert(s);
+    let url = this.RECOMMENDED_URL + s;
+    console.log(url);
     this.http.get(url, { headers: this.contentHeader })
       .map(res => res.json())
       .subscribe(
@@ -100,8 +116,8 @@ export class EventsPage {
     this.navCtrl.push(EventParticipantsPage, { param: url }, { animate: true, direction: 'back' })
   }
 
-  pushEventDetail(event){
-    this.navCtrl.push(EventDetailPage, {param:event}, { animate: true, direction: 'back' })
+  pushEventDetail(event) {
+    this.navCtrl.push(EventDetailPage, { param: event }, { animate: true, direction: 'back' })
   }
 
   pushNewEvent() {

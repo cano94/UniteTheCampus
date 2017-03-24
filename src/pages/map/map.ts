@@ -34,7 +34,7 @@ export class MapPage {
     let mapOptions = {
       center: latLng,
       zoomControl: false,
-      zoom: 10,
+      zoom: 30,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -50,7 +50,7 @@ export class MapPage {
   }
 
   navigate() {
-    LaunchNavigator.navigate(this.event.location)
+    LaunchNavigator.navigate([Number(this.event.latitude), Number(this.event.longitude) ])
       .then(
       success => alert('Launched navigator'),
       error => alert('Error launching navigator: ' + error)

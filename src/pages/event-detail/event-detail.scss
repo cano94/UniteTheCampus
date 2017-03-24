@@ -26,8 +26,31 @@ page-event-detail {
       text-align: center;
     }
 
-    #map {
-        height: 30%;
+    .creator{
+        text-align: right;
+        padding-right: 15px;
     }
 
+    .ratings_header{
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-top: 0px;
+    }
+
+    .ratings{
+        padding-top: 0px;
+    }
+
+    .rating{
+        color: #ffb400;
+        margin-left: auto;
+        margin-right: auto;
+        display: inline;
+        vertical-align: middle;
+        display: inline-block;
+        padding: 5px 10px;
+        ion-icon {
+        font-size: 15px;
+      }
+    }
 }

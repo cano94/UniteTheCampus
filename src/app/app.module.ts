@@ -9,6 +9,8 @@ import { LoginPage } from '../pages/login/login';
 import { TournamentsPage } from '../pages/tournaments/tournaments';
 import {EventDetailPage} from '../pages/event-detail/event-detail';
 import {MapPage} from '../pages/map/map';
+import {MessagePage} from '../pages/message/message'
+import {MessageboxPage} from '../pages/messagebox/messagebox'
 import { TabsPage } from '../pages/tabs/tabs';
 import { EventParticipantsPage } from '../pages/event-participants/event-participants';
 import {AuthHttp, AuthConfig} from 'angular2-jwt';
@@ -27,10 +29,12 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     LoginPage,
     TabsPage,
     HomePage,
+    MessageboxPage,
     EventsPage,
     EventDetailPage,
     MapPage,
     EventParticipantsPage,
+    MessagePage,
     AutocompletePage,
     NewEventPage,
     TournamentsPage,
@@ -44,11 +48,13 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     MyApp,
     LoginPage,
     HomePage,
+    MessageboxPage,
     TabsPage,
     EventsPage,
     EventDetailPage,
     MapPage,
     EventParticipantsPage,
+    MessagePage,
     AutocompletePage,
     NewEventPage,
     TournamentsPage,

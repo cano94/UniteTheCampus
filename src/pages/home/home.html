@@ -5,6 +5,7 @@
 		</ion-title>
 		<ion-buttons end>
 			<button ion-button icon-only (click)="logout()"><ion-icon name="power"></ion-icon></button>
+			<button ion-button icon-only (click)="pushMessages()"><ion-icon name="chatboxes"></ion-icon></button>
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
@@ -20,13 +21,13 @@
 				<h2>{{username}}</h2>
 			</ion-row>
 		</ion-col>
-		<div class="segments">
-			<ion-segment [(ngModel)]="eventType" class="segment">
-				<ion-segment-button value="favorites">
-					Favorites ({{past_events_size}})
+		<div class="segments" *ngIf="upcoming_events">
+			<ion-segment [(ngModel)]="segmentType" class="segment">
+				<ion-segment-button value="past">
+					History ({{past_events_size}})
 				</ion-segment-button>
-				<ion-segment-button value="tickets">
-					Tickets
+				<ion-segment-button value="upcoming">
+					Upcoming ({{upcoming_events.length}})
 				</ion-segment-button>
 				<ion-segment-button value="interests">
 					Interests
@@ -39,32 +40,49 @@
 	</div>
 
 	<div class="all" padding>
-		<div [ngSwitch]="eventType" no-padding>
-			<div class="favorites" no-padding *ngSwitchCase="'favorites'">
-				<ion-slides [options]="mySlideOptions">
-					<ion-slide *ngFor="let past_event of past_events">
-						<ion-card>
-							<img class="event_image" data-src="{{local + past_event.image}}">
-							<ion-card-content>
-								<ion-card-title>
-									{{past_event.name}}
-								</ion-card-title><br>
-								<p>Event Type:{{past_event.event_type}}</p><br>
-								<p>Organizator:{{past_event.creator}}</p><br>
-								<p>Location:{{past_event.location}}</p><br>
-								<p>Description:{{past_event.info}}</p>
-							</ion-card-content>
-						</ion-card>
-					</ion-slide>
-				</ion-slides>
+		<div [ngSwitch]="segmentType" no-padding>
+			<div class="past" no-padding *ngSwitchCase="'past'">
+				<ion-list>
+					<ion-item-sliding *ngFor="let past of past_events">
+						<ion-item>
+							<ion-avatar item-left>
+								<img [src]="past.image">
+							</ion-avatar>
+							<h2>{{past.name}}</h2>
+							<p>by {{past.creator}}</p>
+						</ion-item>
+						<ion-item-options>
+							<button ion-button color="primary" (click)="showRadio(past.creator, past.event_type)" icon-left>
+                              <ion-icon name="star"></ion-icon>
+                                Rate
+                               </button>
+						</ion-item-options>
+					</ion-item-sliding>
+				</ion-list>
 			</div>
-			<ion-list class="tickets" *ngSwitchCase="'tickets'">
-				<ion-col>
-					<ion-list inset>
-						<h1>Tickets</h1>
-					</ion-list>
-				</ion-col>
-			</ion-list>
+
+
+			<div class="upcoming" no-padding *ngSwitchCase="'upcoming'">
+				<ion-list>
+					<ion-item-sliding *ngFor="let event of upcoming_events">
+						<ion-item>
+							<ion-avatar item-left>
+								<img [src]="event.image">
+							</ion-avatar>
+							<h2>{{event.name}}</h2>
+							<p>by {{event.creator}}</p>
+						</ion-item>
+						<ion-item-options>
+							<button ion-button color="primary" (click)="pushEventDetail(event)" icon-left>
+                              <ion-icon name="more"></ion-icon>
+                                Details
+                               </button>
+						</ion-item-options>
+					</ion-item-sliding>
+				</ion-list>
+			</div>
+
+
 			<div class="interests" *ngSwitchCase="'interests'" no-padding>
 				<ion-grid class="i_grid" *ngFor="let trio of getTriples()">
 					<ion-row class="i_row">
@@ -91,7 +109,7 @@
 			<ion-list class="ratings" *ngSwitchCase="'ratings'">
 				<ion-item *ngFor="let rating of user_ratings">
 					<ion-label>
-						{{rating.rating_type}}({{rating.total/rating.avg}})
+						<p>{{rating.rating_type}}({{rating.total/rating.avg}})</p>
 						<rating readOnly="true" [(ngModel)]="rating.avg"></rating>
 					</ion-label>
 				</ion-item>

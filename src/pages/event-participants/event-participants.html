@@ -26,17 +26,9 @@
 					<p>Back off man, I'm a scientist.</p>
 				</ion-item>
 				<ion-item-options>
-					<button ion-button color="light" icon-left>
-          <ion-icon name="ios-more"></ion-icon>
-          More
-        </button>
-					<button ion-button color="primary" icon-left>
+					<button ion-button color="primary" (click)="pushMessagePage(participant.username)" icon-left>
           <ion-icon name="text"></ion-icon>
           Text
-        </button>
-					<button ion-button color="secondary" icon-left>
-          <ion-icon name="call"></ion-icon>
-          Call
         </button>
 				</ion-item-options>
 			</ion-item-sliding>
